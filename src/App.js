@@ -1,17 +1,19 @@
 import React from 'react';
-import './App.css';
-import TaskHeader from './TaskHeader';
+import ServiceAdd from './components/ServiceAdd';
+import ServiceList from './components/ServiceList';
+import ServiceAddClassBased from './components/ServiceAddClassBased';
+import ServiceListClassBased from './components/ServiceListClassBased';
 
 function App() {
-  return (<React.Fragment>
-    <div className="task-1">
-      <TaskHeader title="Задача 1" />
-    </div>
-    <div className="task-2">
-      <TaskHeader title="Задача 2" />
-    </div>
-  </React.Fragment>);
+  return (
+    <>
+      <ServiceAdd />
+      <ServiceList />
+      <hr />
+      <ServiceAddClassBased />
+      <ServiceListClassBased />
+    </>
+  );
 }
 
 export default App;
- 
