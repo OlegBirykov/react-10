@@ -1,25 +1,31 @@
 import React from 'react'
-import {useSelector, useDispatch} from 'react-redux';
-import {removeService} from '../actions/actionCreators';
+import { useSelector, useDispatch } from 'react-redux';
+import { editService, removeService, clearServiceFields } from '../actions/actionCreators';
 
 function ServiceList() {
   const items = useSelector(state => state.serviceList);
   const dispatch = useDispatch();
 
+  const handleEdit = (id, name, price) => {
+    dispatch(editService(id, name, price));
+  }
+
   const handleRemove = id => {
     dispatch(removeService(id));
+    dispatch(clearServiceFields());
   }
 
   return (
     <ul>
-      {items.map(o => (
-        <li key={o.id}>
-          {o.name} {o.price}
-          <button onClick={() => handleRemove(o.id)}>✕</button>
+      {items.map(({ id, name, price }) => (
+        <li key={id}>
+          {name} {price}
+          <button onClick={() => handleEdit(id, name, price)}>&#x270E;</button>  
+          <button onClick={() => handleRemove(id)}>✕</button>
         </li>
       ))}
     </ul>
   )
 }
 
-export default ServiceList
+export default ServiceList;
