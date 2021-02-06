@@ -16,7 +16,7 @@ class ServiceAddClassBased extends Component {
       this.props.onSave(id, name, price);
       this.props.onReset();
 		} else {
-			this.props.setError();
+			this.props.setError('Введите корректные данные');
 		}
   }
 
@@ -25,15 +25,15 @@ class ServiceAddClassBased extends Component {
 	}
 
   render() {
-    const { name, price, isError } = this.props.item;
+    const { name, price, error, isEdit } = this.props.item;
 
     return (
       <form onSubmit={this.handleSubmit} onReset={this.handleReset}>
         <input name='name' onChange={this.handleChange} value={name} />
         <input name='price' onChange={this.handleChange} value={price} />
         <button type='submit'>Save</button>
-        <button type='reset'>Cancel</button>
-        {isError && <p className="App-error">Введите корректные данные</p>}
+        {isEdit && <button type="reset">Cancel</button>}
+		  	{error && <p className="App-error">{error}</p>}
       </form>
     );
   }
@@ -44,7 +44,8 @@ ServiceAddClassBased.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     price: PropTypes.string,
-    isError: PropTypes.bool
+    error: PropTypes.string,
+    isEdit: PropTypes.bool,
   }).isRequired,
   onSave: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
@@ -60,7 +61,7 @@ const mapDispatchToProps = (dispatch) => {
     onChange: (name, value) => dispatch(changeServiceField(name, value)),
     onSave: (id, name, price) => dispatch(addService(id, name, price)),
     onReset: () => dispatch(clearServiceFields()),
-    setError: () => dispatch(setError())
+    setError: (error) => dispatch(setError(error))
   }
 };
 

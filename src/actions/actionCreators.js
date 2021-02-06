@@ -20,6 +20,6 @@ export function clearServiceFields() {
   return { type: CLEAR_SERVICE_FIELDS };
 }
 
-export function setError() {
-  return { type: SET_ERROR };
+export function setError(error) {
+  return { type: SET_ERROR, payload: { error } };
 }

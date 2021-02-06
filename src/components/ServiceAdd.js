@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeServiceField, addService, clearServiceFields, setError } from '../actions/actionCreators';
 
 function ServiceAdd() {
-	const {id, name, price, isError} = useSelector(state => state.serviceAdd);
+	const {id, name, price, error, isEdit} = useSelector(state => state.serviceAdd);
 	const dispatch = useDispatch();
 
 	const handleChange = evt => {
@@ -17,7 +17,7 @@ function ServiceAdd() {
 			dispatch(addService(id, name, price));
 			dispatch(clearServiceFields());
 		} else {
-			dispatch(setError());
+			dispatch(setError('Введите корректные данные'));
 		}
 	}
 
@@ -30,8 +30,8 @@ function ServiceAdd() {
 			<input name="name" onChange={handleChange} value={name} />
 			<input name="price" onChange={handleChange} value={price} />
 			<button type="submit">Save</button>
-			<button type="reset">Cancel</button>
-			{isError && <p className="App-error">Введите корректные данные</p>}
+			{isEdit && <button type="reset">Cancel</button>}
+			{error && <p className="App-error">{error}</p>}
 		</form>
 	);
 }

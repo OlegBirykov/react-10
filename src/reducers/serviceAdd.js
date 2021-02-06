@@ -4,7 +4,8 @@ const initialState = {
   id: '',
   name: '',
   price: '',
-  isError: false
+  error: '',
+  isEdit: false
 };
 
 export default function serviceAddReducer(state = initialState, action) {
@@ -15,9 +16,10 @@ export default function serviceAddReducer(state = initialState, action) {
     case CLEAR_SERVICE_FIELDS:
       return initialState;
     case EDIT_SERVICE:
-      return { ...action.payload, price: String(action.payload.price), isError: false };
+      return { ...action.payload, price: String(action.payload.price), error: '', isEdit: true };
     case SET_ERROR:
-      return { ...state, isError: true };
+      const { error } = action.payload
+      return { ...state, error };
     default:
       return state;
   }
